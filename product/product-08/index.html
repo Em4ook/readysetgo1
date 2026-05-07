@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Product Description Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>AI Product Generator</h1>
+            <p>Създавайте професионални продуктови описания за секунди.</p>
+        </header>
+        
+        <div class="main-layout">
+            <!-- Sidebar for History -->
+            <aside class="history-sidebar">
+                <div class="history-header">
+                    <h2>История</h2>
+                    <button type="button" id="clear-history-btn" class="btn-clear hidden">Изчисти</button>
+                </div>
+                <div id="history-list" class="history-list">
+                    <div class="empty-history">Все още нямате запазени описания.</div>
+                </div>
+            </aside>
+
+            <main>
+                <section class="input-section">
+                    <form id="product-form">
+                        <div class="form-group">
+                            <label for="product-name">Име на продукт *</label>
+                            <input type="text" id="product-name" name="product-name" placeholder="напр. Зимни обувки Alpine" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-category">Категория *</label>
+                            <input type="text" id="product-category" name="product-category" placeholder="напр. Обувки" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-features">Ключови характеристики *</label>
+                            <textarea id="product-features" name="product-features" placeholder="напр. водоустойчиви, топли, естествена кожа" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="product-tone">Желан тон *</label>
+                            <select id="product-tone" name="product-tone" required>
+                                <option value="" disabled selected>Изберете тон...</option>
+                                <option value="професионален">Професионален</option>
+                                <option value="продаващ">Продаващ (Маркетинг)</option>
+                                <option value="приятелски">Приятелски</option>
+                                <option value="забавен">Забавен</option>
+                                <option value="луксозен">Луксозен</option>
+                            </select>
+                        </div>
+                        
+                        <div id="error-message" class="error-message hidden">
+                            Моля, попълнете всички задължителни полета.
+                        </div>
+                        
+                        <button type="submit" id="generate-btn" class="btn-primary">
+                            <span class="btn-text">Генерирай описание</span>
+                            <span class="btn-icon">✨</span>
+                            <span class="spinner hidden"></span>
+                        </button>
+                    </form>
+                </section>
+                
+                <section class="results-section">
+                    <div class="results-section-header">
+                        <h2>Резултати</h2>
+                        <button type="button" id="regenerate-btn" class="btn-secondary hidden">
+                            <span class="btn-text">Прегенерирай</span>
+                            <span class="btn-icon">🔄</span>
+                            <span class="spinner hidden"></span>
+                        </button>
+                    </div>
+                    <div class="results-container">
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3>Кратко описание</h3>
+                                <button type="button" class="btn-copy hidden" data-target="short-desc-container">
+                                    <span class="copy-icon">📋</span>
+                                    <span class="copy-text">Копирай</span>
+                                </button>
+                            </div>
+                            <div id="short-desc-container" class="result-content placeholder-content" contenteditable="true">
+                                Тук ще се появи краткото описание след генериране...
+                            </div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3>Дълго описание</h3>
+                                <button type="button" class="btn-copy hidden" data-target="long-desc-container">
+                                    <span class="copy-icon">📋</span>
+                                    <span class="copy-text">Копирай</span>
+                                </button>
+                            </div>
+                            <div id="long-desc-container" class="result-content placeholder-content" contenteditable="true">
+                                Тук ще се появи дългото описание след генериране...
+                            </div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3>Акценти (Bullet points)</h3>
+                                <button type="button" class="btn-copy hidden" data-target="highlights-container">
+                                    <span class="copy-icon">📋</span>
+                                    <span class="copy-text">Копирай</span>
+                                </button>
+                            </div>
+                            <div id="highlights-container" class="result-content placeholder-content" contenteditable="true">
+                                Тук ще се появят основните акценти след генериране...
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <div id="toast-container" class="toast-container"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
